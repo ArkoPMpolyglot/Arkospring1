@@ -1,0 +1,41 @@
+Capstone project: Manually tuning an ESC cell model
+
+Welcome to the capstone project! To complete this assignment, follow the instructions below. When you have completed your modifications to the sample code that I have provided as a starting point, click on the "Submit Assignment" button to submit your code to the grader.
+
+Concept
+
+This Jupyter notebook operates in the same way as all of the other Jupyter notebooks that you have used so far in this specialization. You can type Octave code into notebook cells and execute that code to see how it functions. This allows you to test your code fully before submitting it for grading.
+
+Only one notebook cell is actually graded – the one marked with "% GRADED FUNCTION" in its first line. Do not modify that line – otherwise the grader will not be able to find the correct function for grading.
+
+Deliverables
+
+The goal of the capstone project is to hand-tune the resistor and capacitor value(s) for a simplified ESC model of a battery cell. To reduce project complexity, this model will not consider hysteresis terms. You will do this tuning by trial-and-error to get the best result you are able to find. Some of the guidelines that you learned in the course will be helpful to you.
+
+When optimizing a model for a real application, the model's parameter values are tuned so that the model gives good and robust predictions over a wide variety of operating conditions. However, for this project you will tune the model to make good predictions for only a single set of input/output (current/voltage) data (otherwise, the project would take too long to complete).
+
+The data that you will be working with were collected from an actual cell in the laboratory. At the beginning of the test, the cell was resting at a high state of charge. The test rested for 5 minutes and then a constant-current discharge pulse was applied for 15 minutes. The cell was then allowed to rest for one hour. Voltage and current were measured every second.
+
+Your deliverable will be a set of resistor and capacitor value(s) within the tuneModel function, below.
+
+Implementation of the cell simulator
+
+This remainder of this notebook implements a cell simulator using the resistor and capacitor value(s) that you provide. It is similar to simCell.m, which you have seen before, except that it deletes hysteresis states.
+
+The following code provides the tuning values for the model resistor(s) (and capacitor(s), if present). You will tune the model by changing the value of rcValues in this function.
+
+Every time you make a change to these tuning variables, make sure that you type < shift >< enter > in this code, and then also press < shift >< enter > in the "wrapper code", below, that executes the simulation algorithm.
+
+The simulator is able to work with Rint or Thévenin type models. Remember that an Rint model looks like: RINT-scale.png To use this kind of model, you need to provide only a value for R0
+, which you do by setting rcValues equal to R0
+
+in milliohms.
+
+Also remember that a standard Thévenin model looks like: Thevenin-scale.png To use this kind of model, you need to provide values for R0, R1, and C1, which you do by setting rcValues to a vector of three values. The first value is R0 in milliohms; the second value is R1 in milliohms; and the third value is C1
+
+in kilofarads.
+
+The simulator can also work with extended Thévenin type models having more than one set of parallel resistor-capacitor branches. One example is: Thevenin2-scale.png To use this kind of model, you need to provide values for R0
+,  the resistor-capacitor resistances, and the resistor-capacitor capacitances. You do this by setting rcValues to a vector having an odd number of elements. The first element is always R0 in milliohms. The even-numbered elements are the resistor-capacitor resistances in milliohms. The remaining elements are the resistor-capacitor capacitances in kilofarads.
+
+The following "wrapper" code loads a lab-test data file, runs the simulator, and plots results. Make sure you type < shift >< enter> in the tuneModel function notebook cell before executing the "wrapper code". (Do not change this code.)
